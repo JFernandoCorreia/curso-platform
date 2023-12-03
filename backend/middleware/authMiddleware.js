@@ -1,9 +1,9 @@
 const jwt = require('jsonwebtoken');
 
-const verificarAutenticacao = (req, res, next) => {
+const autenticar = (req, res, next) => {
   const token = req.header('x-auth-token');
 
-  if (!token) {
+  if (!usuarioAtenticado) {
     return res.status(401).json({ msg: 'Acesso negado. Token não fornecido.' });
   }
 
@@ -16,4 +16,4 @@ const verificarAutenticacao = (req, res, next) => {
   }
 };
 
-module.exports = verificarAutenticacao;
+module.exports = autenticar;

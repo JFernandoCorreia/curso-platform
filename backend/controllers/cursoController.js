@@ -1,6 +1,9 @@
 const { Curso } = require('../models');
 const multer = require('multer');
 const path = require('path');
+const express = require('express');
+const router = express.Router();
+const autenticar = require('../middleware/authMiddleware');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -82,7 +85,7 @@ const listarCursos = async (req, res) => {
   }
 };
 
-router.post('/cadastrar', autenticar, upload.single('imagem'), cursoController.cadastrarCurso);
+router.post('/cadastrar', autenticar, upload.single('imagem'), cadastrarCurso);
 
 module.exports = {
   cadastrarCurso,

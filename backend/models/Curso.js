@@ -1,8 +1,8 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../database');
 
-module.exports = (sequelize, DataTypes) => {
-  const Curso = sequelize.define('Curso', {
+const Curso = (sequelize, DataTypes) => {
+  const model = sequelize.define('Curso', {
     nome: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -28,6 +28,9 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: true,
     },
   });
-  return Curso;
+
+  return model;
+
 };
+
 module.exports = Curso;

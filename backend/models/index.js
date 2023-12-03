@@ -37,6 +37,9 @@ Object.keys(db).forEach(modelName => {
   }
 });
 
+const Curso = require('./Curso')(sequelize, Sequelize.DataTypes);
+db['Curso'] = Curso;
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
