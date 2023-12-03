@@ -1,21 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const Curso = () => {
+const Cursos = () => {
   const [cursos, setCursos] = useState([]);
 
   useEffect(() => {
-    // Função para carregar a lista de cursos
     const carregarCursos = async () => {
       try {
-        const response = await axios.get('/api/cursos'); // Endpoint apropriado
+        // Obtemos o token armazenado localmente
+        const token = localStorage.getItem('token');
+        // Adicionamos o token aos cabeçalhos da solicitação
+        const config = {
+          headers: {
+            'x-auth-token': token,
+          },
+        };
+
+        // Fazemos a solicitação autenticada
+        const response = await axios.get('/api/cursos', config);
         setCursos(response.data);
       } catch (error) {
         console.error('Erro ao carregar cursos:', error);
       }
     };
 
-    // Chamando a função para carregar cursos quando o componente é montado
     carregarCursos();
   }, []);
 
@@ -33,4 +41,4 @@ const Curso = () => {
   );
 };
 
-export default Curso;
+export default Cursos;

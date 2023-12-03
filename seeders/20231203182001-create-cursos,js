@@ -1,0 +1,33 @@
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    // Popule o banco de dados com dados iniciais
+    await queryInterface.bulkInsert('Cursos', [
+      {
+        nome: 'Curso 1',
+        professor: 'Professor 1',
+        categoria: 'Categoria 1',
+        descricao: 'Descrição do Curso 1',
+        imagem: 'imagem1.jpg', // Nome da imagem a ser salva na pasta 'uploads'
+        ativo: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        nome: 'Curso 2',
+        professor: 'Professor 2',
+        categoria: 'Categoria 2',
+        descricao: 'Descrição do Curso 2',
+        imagem: 'imagem2.jpg', // Nome da imagem a ser salva na pasta 'uploads'
+        ativo: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      // Adicione mais cursos conforme necessário
+    ], {});
+  },
+
+  down: async (queryInterface, Sequelize) => {
+    // Remova os dados inseridos na função 'up'
+    await queryInterface.bulkDelete('Cursos', null, {});
+  },
+};

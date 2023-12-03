@@ -9,7 +9,7 @@ import PrivateRoute from './components/PrivateRoute';
 const App = () => {
   return (
     <Router>
-      <div className="App, container">
+      <div className="App container">
         <h1>Sistema de Cursos</h1>
         <Switch>
           <Route path="/login" component={Login} />

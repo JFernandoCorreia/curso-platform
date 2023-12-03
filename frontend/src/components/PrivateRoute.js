@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const usuarioAutenticado = true; // Adicione aqui a lógica de verificação de autenticação
+  const usuarioAutenticado = localStorage.getItem('token');
 
   return (
     <Route
