@@ -16,6 +16,7 @@
     "multer": "^1.4.5-lts.1",
     "mysql2": "^3.6.5",
     "postgres": "^3.4.3",
+    "react-router-dom": "^6.20.1",
     "sequelize": "^6.35.1",
     "sqlite3": "^5.1.6"
   }
