@@ -5,3 +5,4 @@ module.exports = {
   'models-path': path.resolve('backend', 'models'),
   'migrations-path': path.resolve('backend', 'migrations'),
   'seeders-path': path.resolve('backend', 'seeders'),
+}
