@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const sequelize = require('./database');
+const cursoRoutes = require('./routes/cursoRoutes');
+const authRoutes = require('./routes/authRoutes');
 
 const app = express();
 
@@ -9,8 +11,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Configuração das rotas
-const cursoRoutes = require('./routes/cursoRoutes');
 app.use('/cursos', cursoRoutes);
+app.use('/auth', authRoutes);
 
 // Configuração do Sequelize e sincronização com o banco de dados
 sequelize.sync().then(() => {

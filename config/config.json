@@ -1,23 +1,23 @@
 {
   "development": {
-    "username": "root",
-    "password": null,
-    "database": "database_development",
+    "username": "fernandocorreia",
+    "password": "060163",
+    "database": "my_db",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "sqlite"
   },
   "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
+    "username": "fernandocorreia",
+    "password": "060163",
+    "database": "my_db",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "sqlite"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
+    "username": "fernandocorreia",
+    "password": "060163",
+    "database": "my_db",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "sqlite"
   }
 }

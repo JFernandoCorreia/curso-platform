@@ -1,26 +1,13 @@
 const express = require('express');
-const Curso = require('../models/Curso');
+const autenticar = require('../middleware/authMiddleware');
+const cursoController = require('../controllers/cursoController');
+
 const router = express.Router();
 
-// Cadastro de Curso
-router.post('/cadastrar', async (req, res) => {
-  try {
-    const { nome, professor, categoria, descricao, imagem } = req.body;
-
-    // Crie o curso no banco de dados
-    const novoCurso = await Curso.create({
-      nome,
-      professor,
-      categoria,
-      descricao,
-      imagem,
-    });
-
-    res.json({ success: true, curso: novoCurso });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ success: false, message: 'Erro ao cadastrar curso' });
-  }
-});
+router.get('/', autenticar, cursoController.listarCursos);
+router.post('/cadastrar', autenticar, cursoController.cadastrarCurso);
+router.put('/:id/editar', autenticar, cursoController.editarCurso);
+router.get('/:id/buscar', autenticar, cursoController.buscarCurso);
+router.delete('/:id/deletar', autenticar, cursoController.deletarCurso);
 
 module.exports = router;
