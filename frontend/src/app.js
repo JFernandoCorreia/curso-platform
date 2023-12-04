@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import './App.css';
 import Cursos from './components/Cursos';
 import Login from './components/Login';
@@ -11,11 +11,11 @@ const App = () => {
       <div className="App container">
         <h1>Sistema de Cursos</h1>
         <Routes>
+          <Route path="/" element={<Navigate to="/login" />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/cursos" element={<PrivateRoute />} />
+          <Route path="/cursos" element={<PrivateRoute component={Cursos} />} />
         </Routes>
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
           <p>
             Edit <code>src/App.js</code> and save to reload.
           </p>
