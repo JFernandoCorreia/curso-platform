@@ -8,7 +8,7 @@ const Login = ({ history }) => {
   const handleLogin = async () => {
     try {
       const response = await axios.post('/auth/login', { email, password });
-      console.log ('Response:', response);
+      const { success, token } = response.data; // Corrigindo a obtenção de 'success' e 'token'
 
       if (success) {
         localStorage.setItem('token', token);

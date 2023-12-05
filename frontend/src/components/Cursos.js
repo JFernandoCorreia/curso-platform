@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import PrivateRoute from './PrivateRoute';
 
 const Cursos = () => {
   const [cursos, setCursos] = useState([]);
@@ -41,4 +42,4 @@ const Cursos = () => {
   );
 };
 
-export default Cursos;
+export default PrivateRoute(Cursos);

@@ -13,7 +13,6 @@ const CursoEdit = ({ curso, onUpdate }) => {
         },
       };
 
-      // Faz a solicitação para editar o curso
       const response = await axios.put(
         `/api/cursos/${curso.id}/editar`,
         { descricao },
@@ -39,4 +38,4 @@ const CursoEdit = ({ curso, onUpdate }) => {
   );
 };
 
-export default Cursos;
+export default CursoEdit;
