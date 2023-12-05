@@ -19,7 +19,9 @@ const upload = multer({ storage: storage });
 
 const cadastrarCurso = async (req, res) => {
   try {
-    const curso = await Curso.create(req.body);
+    const { nome, professor, categoria, descricao, imagem } = req.body;
+    const curso = await Curso.create({ nome, professor, categoria, descricao, imagem });
+
     res.status(201).json({ success: true, curso });
   } catch (error) {
     console.error(error);
@@ -27,19 +29,22 @@ const cadastrarCurso = async (req, res) => {
   }
 };
 
-const editarCurso = async (req, res) => {
+const atualizarCurso = async (req, res) => {
   try {
     const { id } = req.params;
-    const [updatedRows] = await Curso.update(req.body, { where: { id } });
+    const { nome, professor, categoria, descricao, imagem } = req.body;
+    const curso = await Curso.findByPk(id);
 
-    if (updatedRows > 0) {
-      res.json({ success: true, message: 'Curso editado com sucesso.' });
-    } else {
-      res.status(404).json({ success: false, message: 'Curso não localizado' });
+    if (!curso) {
+      return res.status(404).json({ success: false, message: 'Curso não encontrado' });
     }
+
+    await curso.update({ nome, professor, categoria, descricao, imagem });
+
+    res.status(200).json({ success: true, curso });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ success: false, message: 'Erro ao editar curso' });
+    res.status(500).json({ success: false, message: 'Erro ao atualizar curso' });
   }
 };
 
@@ -62,13 +67,15 @@ const buscarCurso = async (req, res) => {
 const deletarCurso = async (req, res) => {
   try {
     const { id } = req.params;
-    const deletedRows = await Curso.destroy({ where: { id } });
+    const curso = await Curso.findByPk(id);
 
-    if (deletedRows > 0) {
-      res.json({ success: true, message: 'Curso deletado com sucesso.' });
-    } else {
-      res.status(404).json({ success: false, message: 'Curso não localizado' });
+    if (!curso) {
+      return res.status(404).json({ success: false, message: 'Curso não encontrado' });
     }
+
+    await curso.destroy();
+
+    res.status(204).end();
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, message: 'Erro ao deletar curso' });
@@ -78,10 +85,10 @@ const deletarCurso = async (req, res) => {
 const listarCursos = async (req, res) => {
   try {
     const cursos = await Curso.findAll();
-    res.json(cursos);
+    res.status(200).json({ success: true, cursos });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ success: false, message: 'Erro ao listar os cursos.' });
+    res.status(500).json({ success: false, message: 'Erro ao listar cursos' });
   }
 };
 
@@ -89,7 +96,7 @@ router.post('/cadastrar', autenticar, upload.single('imagem'), cadastrarCurso);
 
 module.exports = {
   cadastrarCurso,
-  editarCurso,
+  atualizarCurso,
   buscarCurso,
   deletarCurso,
   listarCursos,

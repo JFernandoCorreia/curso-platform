@@ -1,6 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../database');
 
+
 const Curso = (sequelize, DataTypes) => {
   const model = sequelize.define('Curso', {
     nome: {
