@@ -17,6 +17,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+router.use(express.static(path.join(__dirname, 'uploads')));
+
 const cadastrarCurso = async (req, res) => {
   try {
     const { nome, professor, categoria, descricao, imagem } = req.body;
