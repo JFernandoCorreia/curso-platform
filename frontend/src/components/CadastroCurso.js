@@ -1,17 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CursoForm from './CursoForm';
+import axios from 'axios';
 
-const CadastroCurso = () => {
-  const handleSubmit = (event, data) => {
-    event.preventDefault();
-    // Adicione a lógica para enviar os dados para o backend aqui
-    console.log('Dados do formulário:', data);
+const CadastroCurso = ({ history }) => {
+  const [nome, setNome] = useState('');
+  const [descricao, setDescricao] = useState('');
+
+  const handleCadastro = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const config = {
+        headers: {
+          'x-auth-token': token,
+        },
+      };
+
+      const response = await axios.post(
+        '/api/cursos',
+        { nome, descricao },
+        config
+      );
+
+      console.log('Curso cadastrado com sucesso:', response.data.curso);
+
+    } catch (error) {
+      console.error('Erro ao cadastrar curso:', error);
+    }
   };
 
   return (
     <div>
       <h2>Cadastro de Curso</h2>
-      <CursoForm handleSubmit={handleSubmit} />
+      <CursoForm onSubmit={handleCadastro} />
     </div>
   );
 };

@@ -4,15 +4,30 @@ import './App.css';
 import Cursos from './components/Cursos';
 import Login from './components/Login';
 import PrivateRoute from './components/PrivateRoute';
+import CadastroUsuario from './components/CadastroUsuario';
 
 const App = () => {
   return (
     <Router>
       <div className="App container">
-        <h1>Sistema de Cursos</h1>
+      <h1>Sistema de Cursos</h1>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/login">Loogina</Link>
+            </li>
+            <li>
+              <Link to="/cadastrar-usuario">Cadastrar Usuário</Link>
+            </li>
+            <li>
+              <Link to="/cursos">Cursos</Link>
+            </li>
+          </ul>
+        </nav>
         <Routes>
           <Route path="/" element={<Navigate to="/login" />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/cadastrar-usuario" element={<CadastroUsuario />} />
           <Route path="/cursos" element={<PrivateRoute component={Cursos} />} />
         </Routes>
         <header className="App-header">
