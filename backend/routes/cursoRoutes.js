@@ -14,5 +14,8 @@ router.get('/:id/listar', autenticar, cursoController.listarCursos);
 router.put('/:id/atualizar', autenticar, cursoController.atualizarCurso);
 router.get('/:id/buscar', autenticar, cursoController.buscarCurso);
 router.delete('/:id/deletar', autenticar, cursoController.deletarCurso);
+router.get('/admin/listar', autenticar, cursoController.listarCursosAdmin);
+router.put('/admin/:id/editar', autenticar, cursoController.editarCursoAdmin);
+router.put('/admin/:id/desativar', autenticar, cursoController.desativarCursoAdmin);
 
 module.exports = router;

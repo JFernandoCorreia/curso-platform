@@ -5,6 +5,7 @@ import Cursos from './components/Cursos';
 import Login from './components/Login';
 import PrivateRoute from './components/PrivateRoute';
 import CadastroUsuario from './components/CadastroUsuario';
+import DashboardAdmin from './components/DashboardAdmin';
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/cadastrar-usuario/*" element={<PrivateRoute element={<CadastroUsuario />} />} />
           <Route path="/cursos/*" element={<PrivateRoute element={<Cursos />} />} />
+          <Route path="/dashboard-admin/*" element={<PrivateRoute element={<DashboardAdmin />} />} />
         </Routes>
         <header className="App-header">
           <p>

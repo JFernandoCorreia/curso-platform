@@ -94,7 +94,83 @@ const listarCursos = async (req, res) => {
   }
 };
 
+const listarCursosAdmin = async (req, res) => {
+  try {
+    const usuario = req.usuario;
+
+    if (usuario && usuario.isAdmin) {
+      const cursos = await Curso.findAll();
+      res.status(200).json({ success: true, cursos });
+    } else {
+      res.status(403).json({ success: false, message: 'Acesso negado. Permissões insuficientes.' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: 'Erro ao listar cursos para administrador' });
+  }
+};
+
+const editarCursoAdmin = async (req, res) => {
+  try {
+    const usuario = req.usuario;
+
+    if (usuario && usuario.isAdmin) {
+      const { id } = req.params;
+      const { nome, professor, categoria, descricao, imagem } = req.body;
+
+      const curso = await Curso.findByPk(id);
+
+      if (!curso) {
+        return res.status(404).json({ success: false, message: 'Curso não encontrado' });
+      }
+
+      await curso.update({
+        nome: nome || curso.nome,
+        professor: professor || curso.professor,
+        categoria: categoria || curso.categoria,
+        descricao: descricao || curso.descricao,
+        imagem: imagem || curso.imagem,
+      });
+
+      res.json({ success: true, message: 'Curso editado com sucesso' });
+    } else {
+      res.status(403).json({ success: false, message: 'Acesso negado. Permissões insuficientes.' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: 'Erro ao editar curso para administrador' });
+  }
+};
+
+const desativarCursoAdmin = async (req, res) => {
+  try {
+    const usuario = req.usuario;
+
+    if (usuario && usuario.isAdmin) {
+      const { id } = req.params;
+
+      const curso = await Curso.findByPk(id);
+
+      if (!curso) {
+        return res.status(404).json({ success: false, message: 'Curso não encontrado' });
+      }
+
+      await curso.update({ ativo: false });
+
+      res.json({ success: true, message: 'Curso desativado com sucesso' });
+    } else {
+      res.status(403).json({ success: false, message: 'Acesso negado. Permissões insuficientes.' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: 'Erro ao desativar curso para administrador' });
+  }
+};
+
 router.post('/cadastrar', autenticar, upload.single('imagem'), cadastrarCurso);
+router.get('/admin/listar', autenticar, listarCursosAdmin);
+router.put('/admin/:id/editar', autenticar, editarCursoAdmin);
+router.put('/admin/:id/desativar', autenticar, desativarCursoAdmin);
 
 module.exports = {
   cadastrarCurso,
@@ -102,4 +178,7 @@ module.exports = {
   buscarCurso,
   deletarCurso,
   listarCursos,
+  listarCursosAdmin,
+  editarCursoAdmin,
+  desativarCursoAdmin,
 };

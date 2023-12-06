@@ -12,6 +12,10 @@ const CursoEdit = ({ curso, onUpdate }) => {
           'x-auth-token': token,
         },
       };
+      if (!descricao) {
+        console.error('Por favor, preencha o campo de descrição.');
+        return;
+      }
 
       const response = await axios.put(
         `/api/cursos/${curso.id}/editar`,

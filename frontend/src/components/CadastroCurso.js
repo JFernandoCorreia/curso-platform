@@ -14,6 +14,10 @@ const CadastroCurso = ({ history }) => {
           'x-auth-token': token,
         },
       };
+      if (!nome || !descricao) {
+        console.error('Por favor, preencha todos os campos.');
+        return;
+      }
 
       const response = await axios.post(
         '/api/cursos',

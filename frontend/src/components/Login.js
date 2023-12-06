@@ -4,6 +4,7 @@ import axios from 'axios';
 const Login = ({ history }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [feedback, setFeedback] = useState('');
 
   const handleLogin = async () => {
     try {
@@ -14,7 +15,7 @@ const Login = ({ history }) => {
         localStorage.setItem('token', token);
         history.push('/cursos');
       } else {
-        console.log('Login falhou. Mensagem:', response.data.message);
+        setFeedback(`Login falhou. Mensagem: ${message}`);
       }
     } catch (error) {
       console.error('Erro ao realizar login:', error);
@@ -35,6 +36,7 @@ const Login = ({ history }) => {
           Login
         </button>
       </form>
+      {feedback && <p>{feedback}</p>}
     </div>
   );
 };

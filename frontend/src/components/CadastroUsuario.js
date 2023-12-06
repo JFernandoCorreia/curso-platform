@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+const [feedback, setFeedback] = useState('');
+
 
 const CadastroUsuario = ({ history }) => {
   const [name, setName] = useState('');
@@ -9,13 +11,14 @@ const CadastroUsuario = ({ history }) => {
   const handleCadastro = async () => {
     try {
       const response = await axios.post('/auth/register', { name, email, password });
-      const { success, token } = response.data;
-
+      const { success, token, message } = response.data;
+  
       if (success) {
         localStorage.setItem('token', token);
+        setFeedback('Cadastro realizado com sucesso!');
         history.push('/cursos');
       } else {
-        console.log('Cadastro falhou. Mensagem:', response.data.message);
+        setFeedback(`Cadastro falhou. Mensagem: ${message}`);
       }
     } catch (error) {
       console.error('Erro ao realizar cadastro:', error);
@@ -39,6 +42,7 @@ const CadastroUsuario = ({ history }) => {
           Cadastrar
         </button>
       </form>
+      {feedback && <p>{feedback}</p>}
     </div>
   );
 };
