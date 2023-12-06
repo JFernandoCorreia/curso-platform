@@ -6,5 +6,4 @@ module.exports = {
     url: process.env.DATABASE_URL,
     dialect: 'sqlite',
   },
-  // Adicione configurações adicionais conforme necessário (produção, teste, etc.)
 };
