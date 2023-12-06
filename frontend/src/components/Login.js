@@ -8,11 +8,10 @@ const Login = ({ history }) => {
   const handleLogin = async () => {
     try {
       const response = await axios.post('/auth/login', { email, password });
-      const { success, token } = response.data; // Corrigindo a obtenção de 'success' e 'token'
+      const { success, token } = response.data;
 
       if (success) {
         localStorage.setItem('token', token);
-        // Redirecionar para a página desejada após o login (por exemplo, '/cursos')
         history.push('/cursos');
       } else {
         console.log('Login falhou. Mensagem:', response.data.message);
@@ -30,7 +29,7 @@ const Login = ({ history }) => {
         <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
         <br />
         <label>Password:</label>
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} autoComplete="current-password" />
         <br />
         <button type="button" onClick={handleLogin}>
           Login

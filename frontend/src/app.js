@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate, Link } from 'react-router-dom';
 import './App.css';
 import Cursos from './components/Cursos';
 import Login from './components/Login';
@@ -10,11 +10,11 @@ const App = () => {
   return (
     <Router>
       <div className="App container">
-      <h1>Sistema de Cursos</h1>
+        <h1>Sistema de Cursos</h1>
         <nav>
           <ul>
             <li>
-              <Link to="/login">Loogina</Link>
+              <Link to="/login">Login</Link>
             </li>
             <li>
               <Link to="/cadastrar-usuario">Cadastrar Usuário</Link>
@@ -27,8 +27,8 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Navigate to="/login" />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/cadastrar-usuario" element={<CadastroUsuario />} />
-          <Route path="/cursos" element={<PrivateRoute component={Cursos} />} />
+          <Route path="/cadastrar-usuario/*" element={<PrivateRoute element={<CadastroUsuario />} />} />
+          <Route path="/cursos/*" element={<PrivateRoute element={<Cursos />} />} />
         </Routes>
         <header className="App-header">
           <p>

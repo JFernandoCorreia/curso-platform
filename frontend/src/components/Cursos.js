@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import PrivateRoute from './PrivateRoute';
 
 const Cursos = () => {
   const [cursos, setCursos] = useState([]);
@@ -8,16 +7,13 @@ const Cursos = () => {
   useEffect(() => {
     const carregarCursos = async () => {
       try {
-        // Obtemos o token armazenado localmente
         const token = localStorage.getItem('token');
-        // Adicionamos o token aos cabeçalhos da solicitação
         const config = {
           headers: {
             'x-auth-token': token,
           },
         };
 
-        // Fazemos a solicitação autenticada
         const response = await axios.get('/api/cursos', config);
         setCursos(response.data);
       } catch (error) {
@@ -42,4 +38,4 @@ const Cursos = () => {
   );
 };
 
-export default PrivateRoute(Cursos);
+export default Cursos;

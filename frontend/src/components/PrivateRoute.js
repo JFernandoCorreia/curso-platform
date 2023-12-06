@@ -1,14 +1,17 @@
 import React from 'react';
-import { Route, Navigate } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
+import Cursos from './Cursos';
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
+const PrivateRoute = ({ element: Element, ...rest }) => {
   const usuarioAutenticado = localStorage.getItem('token');
 
   return (
-    <Route
-      {...rest}
-      element={usuarioAutenticado ? <Component /> : <Navigate to="/login" />}
-    />
+    <Routes>
+      <Route
+        {...rest}
+        element={usuarioAutenticado ? <Element /> : <Navigate to="/login" />}
+      />
+    </Routes>
   );
 };
 
