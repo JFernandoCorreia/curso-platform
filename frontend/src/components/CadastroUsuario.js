@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-const [feedback, setFeedback] = useState('');
 
 
 const CadastroUsuario = ({ history }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [feedback, setFeedback] = useState('');
 
   const handleCadastro = async () => {
     try {
